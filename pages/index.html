@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accueil Quiz Harry Potter</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Choisissez un Quiz Harry Potter</h1>
+    <button id="toggle-dark" aria-label="Basculer le thème">🌙</button>
+  </header>
+
+  <main id="quiz-list">
+    <!-- Les cartes des quiz seront insérées ici par main.js -->
+  </main>
+
+  <button id="history-btn" aria-label="Voir l'historique des quiz">📜 Voir l'historique</button>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Bouton historique
+    document.getElementById("history-btn").addEventListener("click", () => {
+      window.location.href = "history.html";
+    });
+
+    // Dark mode toggle
+    const toggleDarkBtn = document.getElementById("toggle-dark");
+    const body = document.body;
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        body.classList.add("dark-mode");
+        toggleDarkBtn.textContent = "☀️";
+      } else {
+        body.classList.remove("dark-mode");
+        toggleDarkBtn.textContent = "🌙";
+      }
+    }
+
+    function toggleTheme() {
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        toggleDarkBtn.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      } else {
+        body.classList.add("dark-mode");
+        toggleDarkBtn.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    toggleDarkBtn.addEventListener("click", toggleTheme);
+    document.addEventListener("DOMContentLoaded", loadTheme);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Historique des Quiz</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <div id="page-container">
+    <header>
+      <h1>📜 Historique des Quiz</h1>
+      <button id="toggle-dark">🌙</button>
+    </header>
+
+    <main id="content-wrap">
+      <div id="history-container" class="quiz-card"></div>
+      <button id="clear-history-btn">Effacer l'historique</button>
+    </main>
+    <button id="back-home-btn">← Retour à l'accueil</button>
+    <script>
+      document.getElementById("back-home-btn").addEventListener("click", () => {
+      window.location.href = "index.html"; 
+      });
+    </script>
+
+    <footer id="footer">
+      © 2025 Zgarni Rawen - Quizz App
+    </footer>
+  </div>
+
+  <script src="../utils/storage.js"></script>
+  <script src="../assets/js/history.js"></script>
+
+  <script>
+    // Gestion de l'affichage de l'historique
+    document.addEventListener("DOMContentLoaded", () => {
+      displayHistory("history-container");
+
+      document.getElementById("clear-history-btn").addEventListener("click", () => {
+        clearHistoryDisplay("history-container");
+      });
+    });
+
+    // Gestion Dark Mode intégré
+    const toggleDarkBtn = document.getElementById("toggle-dark");
+    const body = document.body;
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        body.classList.add("dark-mode");
+        toggleDarkBtn.textContent = "☀️";
+      } else {
+        body.classList.remove("dark-mode");
+        toggleDarkBtn.textContent = "🌙";
+      }
+    }
+
+    function toggleTheme() {
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        toggleDarkBtn.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      } else {
+        body.classList.add("dark-mode");
+        toggleDarkBtn.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    toggleDarkBtn.addEventListener("click", toggleTheme);
+    document.addEventListener("DOMContentLoaded", loadTheme);
+  </script>
+
+</body>
+</html>
